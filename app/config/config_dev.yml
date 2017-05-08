@@ -21,13 +21,21 @@ monolog:
         console:
             type:   console
             bubble: false
+            process_psr_3_messages: false
             verbosity_levels:
                 VERBOSITY_VERBOSE: INFO
                 VERBOSITY_VERY_VERBOSE: DEBUG
-            channels: ["!doctrine"]
+            channels: ['!event', '!doctrine', '!console']
+        # To follow logs in real time, execute the following command:
+        # `bin/console server:log -vv`
+        server_log:
+            type:   server_log
+            process_psr_3_messages: false
+            host: 0:9911
         console_very_verbose:
             type:   console
             bubble: false
+            process_psr_3_messages: false
             verbosity_levels:
                 VERBOSITY_VERBOSE: NOTICE
                 VERBOSITY_VERY_VERBOSE: NOTICE
