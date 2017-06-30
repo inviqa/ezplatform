@@ -181,3 +181,10 @@ unset COMPOSE_FILE COMPOSE_DIR COMPOSER_HOME
 # To unset blackfire variables
 unset BLACKFIRE_SERVER_ID BLACKFIRE_SERVER_TOKEN
 ```
+
+### Xdebug
+
+1. On your machine in another terminal window, run `ssh -p 2222 forward@localhost -N -R 9000:localhost:9000` with a password of `ez`
+2. In PHPStorm, configure a web server with path mapping /var/www to the project directory.
+3. In PHPStorm, click the listen for connections button in the top right.
+4. In your browser, use an extension to set the right cookies to trigger Xdebug.

@@ -3,12 +3,15 @@ version: '2.1'
 
 services:
   app:
-    image: ${PHP_IMAGE}
+    build:
+      context: ../../
+      dockerfile: ${APP_DOCKER_FILE}
     volumes:
      - ${COMPOSE_DIR}/../../:/var/www
      - ${COMPOSER_HOME}:/root/.composer
     depends_on:
      - db
+     - sshforward
     environment:
      - SYMFONY_ENV=${SYMFONY_ENV-dev}
      - SYMFONY_DEBUG
@@ -44,3 +47,12 @@ services:
      - MYSQL_PASSWORD=$DATABASE_PASSWORD
      - MYSQL_DATABASE=$DATABASE_NAME
      - TERM=dumb
+
+  sshforward:
+    image: quay.io/continuouspipe/ssh-forward:stable
+    environment:
+      SSH_FORWARD_PASSWORD: ez
+    expose:
+      - 9000
+    ports:
+      - "2222:22"

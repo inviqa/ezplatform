@@ -25,5 +25,12 @@ RUN mkdir -p web/var \
     && rm -rf ~/.composer/*/* \
     && [ "$REMOVE_AUTH" = "1" ] && rm -f auth.json
 
+RUN yes | pecl install xdebug \
+    && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_host=sshforward" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_port=9000" >> /usr/local/etc/php/conf.d/xdebug.ini \
+    && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
+
 # Declare volumes so it an can be shared with other containers
 VOLUME /var/www /var/www/web/var
